@@ -2,7 +2,8 @@ version: '3'
 
 services:
   nginx:
-    image: nginx:1.6
+    container_name: "one-api-nginx"
+    image: nginx:1.11.9
     ports: 
       - "10080:80"
     volumes:
@@ -10,7 +11,6 @@ services:
       #- "$PWD/html:/usr/share/nginx/html"
     networks:
       - jiker_one_net
-    container_name: "one-api-nginx"
   onepro:
     build: 
       context: ./one-pro
