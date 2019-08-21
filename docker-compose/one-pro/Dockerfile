@@ -46,6 +46,7 @@ RUN set -ex \
 RUN yarn install 
 RUN yarn run deploy:local
 
+RUN useradd -ms /bin/bash produser
 USER produser
 
 EXPOSE 9001
