@@ -18,11 +18,11 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     cd /app && \
     ls
 WORKDIR /app
-RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash
-RUN yum install -y nodejs
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-RUN $HOME/.yarn/bin/yarn install
-RUN yarn run deploy:prod
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
+    yum install -y nodejs && \
+    curl -o- -L https://yarnpkg.com/install.sh | bash && \
+    $HOME/.yarn/bin/yarn install
+RUN ./yarn run deploy:prod
 
 FROM nginx
 RUN mkdir /var/wwwroot/one-pro
