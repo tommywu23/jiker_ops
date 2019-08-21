@@ -22,7 +22,7 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
 RUN yarn run deploy:prod
 
-#FROM nginx
+FROM nginx
 RUN mkdir /var/wwwroot/one-pro
 COPY --from=0 /app/dist /var/wwwroot/one-pro
-#COPY one-pro.conf /etc/nginx/nginx.conf
+COPY one-pro.conf /etc/nginx/nginx.conf

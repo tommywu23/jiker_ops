@@ -18,8 +18,10 @@ services:
       args:
        - username=tommywu
        - password=Wjs007008
-    image: onepro:gm
     container_name: "one-pro"
+    image: onepro:gm
+    ports: 
+      - "9001:9001"
   # oneapi:
   #   build: ./php-fpm
   #   image: php:7.2-fpm
