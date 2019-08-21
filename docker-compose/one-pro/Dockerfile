@@ -14,11 +14,11 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum -y install docker-ce && \
     yum -y install bash git openssh && \
-    cd ./ && \
+    cd ~/ && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
 
 FROM node:10
-COPY ./jiker-one-pro /app
+COPY ~/jiker-one-pro /app
 WORKDIR /app
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
