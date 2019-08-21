@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    container_name: "one-api-nginx"
+    container_name: "one-nginx"
     image: nginx:1.11.9
     ports: 
       - "10080:80"
@@ -24,6 +24,7 @@ services:
       - "9001:9001"
     environment:
       - npm_config_unsafe_perm=true
+    user: produser
   # oneapi:
   #   build: ./php-fpm
   #   image: php:7.2-fpm
