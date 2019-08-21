@@ -4,8 +4,8 @@ ARG username
 ARG password
 
 RUN yum update && yum upgrade && \
-    yum add --no-cache bash git openssh \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git
+    yum add --no-cache bash git openssh 
+RUN git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git
 
 FROM node:10
 COPY ./ /app
