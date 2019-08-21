@@ -11,6 +11,9 @@ ARG password
 #     rpm -ivh yum-3.4.3-132.el7.centos.0.1.noarch.rpm yum-metadata-parser-1.1.4-10.el7.x86_64.rpm yum-plugin-fastestmirror-1.1.31-34.el7.noarch.rpm && \
 RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
+    yum clean all && \
+    yum --enablerepo=base clean metadata && \
+    yum --enablerepo=updates cleanmetadata && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
