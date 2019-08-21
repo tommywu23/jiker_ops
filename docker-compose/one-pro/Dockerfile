@@ -51,7 +51,7 @@ USER produser
 
 EXPOSE 9001
 
-CMD yarn run serve
+CMD yarn run serve -p 9001
 
 # FROM nginx
 # RUN mkdir /var/wwwroot/one-pro
