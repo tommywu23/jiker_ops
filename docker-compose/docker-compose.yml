@@ -107,7 +107,7 @@ services:
   #   networks:
   #     - jiker_one_net
 networks:
-    app_net:
+    jiker_one_net:
         driver: bridge
         ipam:
             config:
