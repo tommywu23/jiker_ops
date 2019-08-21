@@ -43,10 +43,14 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-RUN yarn --help 
+RUN npm install 
 RUN yarn run deploy:prod
 
-FROM nginx
-RUN mkdir /var/wwwroot/one-pro
-COPY --from=0 /app/dist /var/wwwroot/one-pro
-COPY one-pro.conf /etc/nginx/nginx.conf
+EXPOSE 8080
+
+CMD npm run serve
+
+# FROM nginx
+# RUN mkdir /var/wwwroot/one-pro
+# COPY --from=0 /app/dist /var/wwwroot/one-pro
+# COPY one-pro.conf /etc/nginx/nginx.conf

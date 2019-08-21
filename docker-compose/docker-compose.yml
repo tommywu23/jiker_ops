@@ -22,6 +22,8 @@ services:
     image: onepro:gm
     ports: 
       - "9001:9001"
+    environment:
+      - npm_config_unsafe_perm=true
   # oneapi:
   #   build: ./php-fpm
   #   image: php:7.2-fpm
