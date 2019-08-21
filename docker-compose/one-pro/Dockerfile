@@ -12,13 +12,13 @@ ARG password
 RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
     yum makecache fast && \
-    yum -y install docker-ce && \
-    yum -y install bash git openssh nodejs && \
-    node -v && \
+    yum install -y docker-ce && \
+    yum install -y bash git openssh && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
     cd /app && \
     ls
 WORKDIR /app
+RUN yum install -y nodejs
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
 RUN yarn run deploy:prod
