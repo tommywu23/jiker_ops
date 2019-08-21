@@ -54,6 +54,6 @@ USER produser
 # CMD yarn run serve --port 9001
 
 # FROM nginx
-RUN mkdir /var/wwwroot/one-pro
-COPY --from=0 /app/dist /var/wwwroot/one-pro
+# RUN mkdir -p /var/wwwroot/one-pro
+# COPY --from=0 /app/dist /var/wwwroot/one-pro
 # COPY one-pro.conf /etc/nginx/nginx.conf

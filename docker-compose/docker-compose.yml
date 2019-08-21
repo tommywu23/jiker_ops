@@ -10,7 +10,7 @@ services:
     volumes:
       - ./conf.d:/etc/nginx/conf.d
       - ./log:/var/log/nginx
-      - ./www:/var/www
+      - ./www:/var/wwwroot
     networks:
       - jiker_one_net
   onepro:
@@ -28,7 +28,7 @@ services:
     environment:
       - npm_config_unsafe_perm=true
     volumes:
-      - ./www:/var/wwwroot
+      - ./www/oneweb:/app/dist
     user: produser
     networks:
       - jiker_one_net
