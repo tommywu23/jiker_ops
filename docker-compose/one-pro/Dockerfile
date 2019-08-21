@@ -17,7 +17,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
+    git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
     cd /app && \
     ls
 WORKDIR /app
@@ -44,7 +44,7 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 RUN yarn install 
-RUN yarn run deploy:prod
+RUN yarn run deploy:local
 
 USER produser
 
