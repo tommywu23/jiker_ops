@@ -3,11 +3,13 @@ FROM registry.access.redhat.com/rhel7/rhel
 ARG username
 ARG password
 
-RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
-    yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo \
-    yum makecache fast \
-    yum -y install docker-ce bash git openssh \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git \
+RUN yum install -y yum-utils device-mapper-persistent-data lvm2 
+RUN yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo 
+RUN yum makecache fast
+RUN yum -y install docker-ce
+RUN yum -y install bash git openssh 
+RUN git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
+
 FROM node:10
 COPY ./ /app
 WORKDIR /app
