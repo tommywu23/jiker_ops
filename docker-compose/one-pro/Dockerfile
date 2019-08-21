@@ -22,6 +22,7 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
     yum install -y nodejs && \
     curl -o- -L https://yarnpkg.com/install.sh | bash && \
     $HOME/.yarn/bin/yarn install && \
+    yarn && \
     yarn run deploy:prod
 FROM nginx
 RUN mkdir /var/wwwroot/one-pro
