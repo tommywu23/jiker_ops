@@ -15,9 +15,11 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum -y install docker-ce && \
     yum -y install bash git openssh && \
     cd ~/ && \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
+    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git && \
+    ls
 
 FROM node:10
+RUN ls
 COPY ~/jiker-one-pro /app
 WORKDIR /app
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
