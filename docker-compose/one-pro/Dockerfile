@@ -49,11 +49,11 @@ RUN yarn run deploy:local
 RUN useradd -ms /bin/bash produser
 USER produser
 
-EXPOSE 9001
+# EXPOSE 9001
 
-CMD yarn run serve --port 9001
+# CMD yarn run serve --port 9001
 
 # FROM nginx
-# RUN mkdir /var/wwwroot/one-pro
-# COPY --from=0 /app/dist /var/wwwroot/one-pro
+RUN mkdir /var/wwwroot/one-pro
+COPY --from=0 /app/dist /var/wwwroot/one-pro
 # COPY one-pro.conf /etc/nginx/nginx.conf

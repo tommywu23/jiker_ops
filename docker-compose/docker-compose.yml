@@ -27,6 +27,8 @@ services:
       - 9001:9001
     environment:
       - npm_config_unsafe_perm=true
+    volumes:
+      - ./www:/var/wwwroot
     user: produser
     networks:
       - jiker_one_net
