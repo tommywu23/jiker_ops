@@ -27,7 +27,15 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
 #     $HOME/.yarn/bin/yarn install 
 
 ENV YARN_VERSION 1.17.3
-RUN curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+RUN set -ex \
+    && for key in \
+        6A010C5166006599AA17F08146C2130DFD2497F5 \
+    ; do \
+        gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+        gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+        gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
+    done \
+    curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
     && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
     && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
     && mkdir -p /opt/yarn \
