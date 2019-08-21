@@ -54,6 +54,6 @@ EXPOSE 9001
 CMD yarn run serve --port 9001
 
 # FROM nginx
-RUN sudo mkdir -p /var/wwwroot/one-pro
-COPY --from=0 /app/dist /var/wwwroot/one-pro
+# RUN sudo mkdir -p /var/wwwroot/one-pro
+# COPY --from=0 /app/dist /var/wwwroot/one-pro
 # COPY one-pro.conf /etc/nginx/nginx.conf
