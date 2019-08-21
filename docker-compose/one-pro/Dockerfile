@@ -1,5 +1,6 @@
 #FROM registry.access.redhat.com/rhel7/rhel
 FROM centos:7
+FROM node:10
 
 ARG username
 ARG password
@@ -14,9 +15,9 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum -y install docker-ce && \
     yum -y install bash git openssh && \
+    cd ./ && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
 
-FROM node:10
 COPY ./jiker-one-pro /app
 WORKDIR /app
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
