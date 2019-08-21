@@ -17,7 +17,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
 
 FROM node:10
-COPY ./ /app
+COPY ./jiker-one-pro /app
 WORKDIR /app
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
