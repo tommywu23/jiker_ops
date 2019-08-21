@@ -18,6 +18,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     cd /app && \
     ls
 WORKDIR /app
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash
 RUN yum install -y nodejs
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN $HOME/.yarn/bin/yarn install
