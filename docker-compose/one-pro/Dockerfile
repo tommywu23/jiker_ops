@@ -45,6 +45,8 @@ RUN set -ex \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 RUN yarn install 
 RUN yarn run deploy:local
+RUN mkdir -p /opt/wwwroot/oneweb
+COPY --from=0 /app/dist /opt/wwwroot/oneweb
 
 RUN useradd -ms /bin/bash produser
 USER produser
@@ -54,6 +56,4 @@ EXPOSE 9001
 CMD yarn run serve --port 9001
 
 # FROM nginx
-# RUN sudo mkdir -p /var/wwwroot/one-pro
-# COPY --from=0 /app/dist /var/wwwroot/one-pro
 # COPY one-pro.conf /etc/nginx/nginx.conf

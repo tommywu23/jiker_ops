@@ -28,7 +28,7 @@ services:
     environment:
       - npm_config_unsafe_perm=true
     volumes:
-      - ./www/oneweb:/app/dist
+      - ./www/oneweb:/opt/wwwroot/oneweb
     user: produser
     networks:
       - jiker_one_net
