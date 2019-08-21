@@ -1,0 +1,116 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.6
+    ports: 
+      - "10080:80"
+    depends_on:
+      - "php"
+    volumes:
+      - "$PWD/conf.d:/etc/nginx/conf.d"
+      #- "$PWD/html:/usr/share/nginx/html"
+    networks:
+      - jiker_one_net
+    container_name: "one-api-nginx"
+  onepro:
+    build: 
+      context: ./one-pro
+      dockerfile: Dockerfile
+      args:
+       - username=tommywu
+       - password=Wjs007008
+    image: onepro:gm
+    container_name: "one-pro"
+  # oneapi:
+  #   build: ./php-fpm
+  #   image: php:7.2-fpm
+  #   volumes:
+  #     - "$PWD/one-api:/var/www/one-api"
+  #   environment:
+  #     - DB_HOST=192.168.0.252
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=
+  #     - DB_USERNAME=
+  #     - DB_PASSWORD=
+  #     - DB_SLAVE_HOST=192.168.0.251
+  #     - DB_MASTER_HOST=192.168.0.252
+  #     - ONES_URL=https://ones.jiker.com
+  #     - ONES_APPID=
+  #     - ONES_APP_SECRET=
+  #     #设置接口前缀
+  #     - API_PREFIX = api 
+  #     #配置域名
+  #     - APP_URL=https://up_one_api.jiker.com 
+  #     - SESSION_DOMAIN=jiker.com 
+  #     - QI_NIU_CDN=https://t2.cdn.yunfangkeji.cn/
+  #   #env_file: ./.env.production
+  #   networks:
+  #     - jiker_one_net
+  #   depends_on:
+  #     - mysql-master
+  #     - mysql-slave
+  #     - redis
+  #   container_name: "one-api-php"
+  # admin:
+  #   build: ./php-fpm
+  #   image: php:7.2-fpm
+  #   volumes:
+  #     - "$PWD/admin:/var/www/admin"
+  #   environment:
+  #     - DB_HOST=192.168.0.252
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=
+  #     - DB_USERNAME=
+  #     - DB_PASSWORD=
+  #     - DB_SLAVE_HOST=192.168.0.251
+  #     - DB_MASTER_HOST=192.168.0.252
+  #     - ONES_URL=https://ones.jiker.com
+  #     - ONES_APPID=
+  #     - ONES_APP_SECRET=
+  #     #设置接口前缀
+  #     #- API_PREFIX = api 
+  #     #配置域名
+  #     #- APP_URL=https://up_one_api.jiker.com 
+  #     - SESSION_DOMAIN=jiker.com 
+  #     - QI_NIU_CDN=https://t2.cdn.yunfangkeji.cn/
+  #   #env_file: ./.env.production
+  #   networks:
+  #     - jiker_one_net
+  #   container_name: "admin-php"
+  # mysql-master:
+  #   image: mysql:5.7
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=api123
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.252
+  #   container_name: "mysql-master"
+  # mysql-slave:
+  #   image: mysql:5.7
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=api123
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.251
+  #     container_name: "mysql-slave"
+  # redis:
+  #   image: redis
+  #   container_name: my_redis
+  #   ##command: redis-server --requirepass yourpassword
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - ./data:/data
+  #   networks:
+  #     - jiker_one_net
+networks:
+    app_net:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 192.168.0.0/16
