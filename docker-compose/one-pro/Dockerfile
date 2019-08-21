@@ -46,6 +46,8 @@ RUN set -ex \
 RUN yarn install 
 RUN yarn run deploy:prod
 
+USER produser
+
 EXPOSE 9001
 
 CMD yarn run serve
