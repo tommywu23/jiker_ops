@@ -2,13 +2,15 @@ version: '3'
 
 services:
   nginx:
-    container_name: "one-nginx"
+    container_name: one-nginx
     image: nginx:1.11.9
+    restart: always
     ports: 
-      - "10080:80"
+      - 10080:80
     volumes:
-      - "$PWD/conf.d:/etc/nginx/conf.d"
-      #- "$PWD/html:/usr/share/nginx/html"
+      - ./conf.d:/etc/nginx/conf.d
+      - ./log:/var/log/nginx
+      - ./www:/var/www
     networks:
       - jiker_one_net
   onepro:
@@ -20,8 +22,9 @@ services:
        - password=Wjs007008
     container_name: "one-pro"
     image: onepro:gm
+    restart: always
     ports: 
-      - "9001:9001"
+      - 9001:9001
     environment:
       - npm_config_unsafe_perm=true
     user: produser
