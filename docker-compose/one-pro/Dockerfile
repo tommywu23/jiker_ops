@@ -13,7 +13,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
     yum clean all && \
     yum --enablerepo=base clean metadata && \
-    yum --enablerepo=updates cleanmetadata && \
+    yum --enablerepo=updates clean metadata && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
