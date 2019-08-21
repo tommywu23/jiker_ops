@@ -22,11 +22,22 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     ls
 WORKDIR /app
 RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
-    yum install -y nodejs && \
-    curl -o- -L https://yarnpkg.com/install.sh | bash && \
-    $HOME/.yarn/bin/yarn install 
-RUN yarn 
+    yum install -y nodejs 
+#     curl -o- -L https://yarnpkg.com/install.sh | bash && \
+#     $HOME/.yarn/bin/yarn install 
+
+ENV YARN_VERSION 1.17.3
+RUN curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+    && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
+    && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+    && mkdir -p /opt/yarn \
+    && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+    && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+    && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
+    && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
+RUN yarn --help 
 RUN yarn run deploy:prod
+
 FROM nginx
 RUN mkdir /var/wwwroot/one-pro
 COPY --from=0 /app/dist /var/wwwroot/one-pro
