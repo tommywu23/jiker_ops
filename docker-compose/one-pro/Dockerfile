@@ -14,7 +14,8 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum -y install docker-ce && \
     yum -y install bash git openssh && \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git && \
+    git clone http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git 
+
 FROM node:10
 COPY ./ /app
 WORKDIR /app
