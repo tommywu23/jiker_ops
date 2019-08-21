@@ -43,12 +43,12 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-RUN npm install 
+RUN yarn install 
 RUN yarn run deploy:prod
 
-EXPOSE 8080
+EXPOSE 9001
 
-CMD npm run serve
+CMD yarn run serve
 
 # FROM nginx
 # RUN mkdir /var/wwwroot/one-pro
