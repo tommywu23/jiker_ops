@@ -25,6 +25,8 @@ services:
     environment:
       - npm_config_unsafe_perm=true
     user: produser
+    networks:
+      - jiker_one_net
   # oneapi:
   #   build: ./php-fpm
   #   image: php:7.2-fpm
