@@ -32,7 +32,7 @@ RUN cd /composer/api && \
            --no-scripts \
            --prefer-dist
 COPY .env /composer/api/.env 
-RUN  cat .env 
+RUN  ls && cat .env 
 
 ### 安装程序
 # RUN composer install && \
