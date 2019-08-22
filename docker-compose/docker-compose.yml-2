@@ -1,6 +1,21 @@
 version: '3'
 
 services:
+  oneapi:
+    build: 
+      context: ./one-api
+      dockerfile: Dockerfile
+      args:
+       - username=tommywu
+       - password=Wjs007008
+    image: oneapi:gm
+    container_name: one-api
+    networks:
+      - jiker_one_net
+    depends_on:
+      - mysql-master
+      - mysql-slave
+      - redis
   mysql-master:
     image: mysql:5.7
     container_name: mysql-master

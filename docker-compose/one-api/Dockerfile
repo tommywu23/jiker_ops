@@ -15,11 +15,10 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum install -y bash git openssh && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
     git checkout edu-api && \
-    cd /api 
+    cd /api && ls 
 
 ### 安装程序
-RUN cd api && \
-    composer install && \
+RUN composer install && \
     cp .env.example .env && \
     php artisan key:generate && \
 	php artisan jwt:secret && \
