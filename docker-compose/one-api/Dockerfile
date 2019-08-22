@@ -32,8 +32,8 @@ RUN cd ${CODE_PATH} && ls -a && \
            --no-plugins \
            --no-scripts \
            --prefer-dist
-RUN ls -a
-COPY .env ${CODE_PATH}/.env 
+RUN cd ${CODE_PATH} && ls -a
+COPY .env ${CODE_PATH} 
 RUN ls -a
 RUN cat .env && \
         php artisan key:generate && \
