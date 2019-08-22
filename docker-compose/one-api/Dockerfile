@@ -20,8 +20,8 @@ FROM php:7.2-fpm as laravel
 
 ARG CODE_PATH=/jikerone/api
 
-RUN useradd -u 1000 -ms /bin/bash produser
-USER produser
+# RUN useradd -u 1000 -ms /bin/bash produser
+# USER produser
 RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
@@ -35,7 +35,8 @@ RUN cd ${CODE_PATH} && \
            --no-interaction \
            --no-plugins \
            --no-scripts \
-           --prefer-dist
+            --no-dev \
+           --prefer-dist 
 COPY .env ${CODE_PATH} 
 RUN cd ${CODE_PATH} && ls -a && \
     useradd -u 1000 -ms /bin/bash produser
