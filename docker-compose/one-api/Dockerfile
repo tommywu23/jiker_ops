@@ -19,7 +19,8 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
 
 ### 安装程序
 RUN composer install && \
-    cp .env.example .env && \
+    cp .env.prod .env && \
+    cat .env && \
     php artisan key:generate && \
 	php artisan jwt:secret && \
     php artisan migrate && \
