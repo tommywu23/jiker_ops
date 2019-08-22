@@ -38,6 +38,9 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --no-dev \
            --prefer-dist 
 COPY .env ${CODE_PATH} 
+
+RUN useradd -r -g produser 
+USER produser
 # RUN apk --update add bash && \
 #     ln -sf /bin/bash /bin/sh && \
 #     useradd -u 1000 -ms /bin/bash produser
