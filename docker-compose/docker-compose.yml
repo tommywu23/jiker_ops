@@ -13,8 +13,6 @@ services:
       - ./www:/var/wwwroot
     networks:
       - jiker_one_net
-    depends_on:
-      - one-pro
   onepro:
     build: 
       context: ./one-pro
@@ -29,8 +27,6 @@ services:
       - 9001:9001
     environment:
       - npm_config_unsafe_perm=true
-    volumes:
-      - ./www/oneweb:/app/dist
     user: produser
     networks:
       - jiker_one_net
