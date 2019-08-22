@@ -25,7 +25,12 @@ RUN rm -f /usr/local/bin/composer && \
 COPY --from=0 /api /composer/api
 RUN cd /composer/api && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
-       composer install 
+       composer install \
+           --ignore-platform-reqs \
+           --no-interaction \
+           --no-plugins \
+           --no-scripts \
+           --prefer-dist
 COPY .env /composer/api/.env 
 RUN  cat .env 
 
