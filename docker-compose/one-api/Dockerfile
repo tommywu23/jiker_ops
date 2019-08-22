@@ -32,10 +32,9 @@ RUN cd ${CODE_PATH} && ls -a && \
            --no-plugins \
            --no-scripts \
            --prefer-dist
-RUN cd ${CODE_PATH} && ls -a
 COPY .env ${CODE_PATH} 
-RUN ls -a
-RUN cat .env && \
+RUN cd ${CODE_PATH} && ls -a
+RUN cat ${CODE_PATH}/.env && \
         php artisan key:generate && \
         php artisan jwt:secret && \
         php artisan migrate && \
