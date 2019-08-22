@@ -32,15 +32,12 @@ RUN cd /composer/api && \
            --no-scripts \
            --prefer-dist
 COPY .env /composer/api/.env 
-RUN  ls && cat .env 
-
-### 安装程序
-# RUN composer install && \
-#     php artisan key:generate && \
-# 	php artisan jwt:secret && \
-#     php artisan migrate && \
-# 	php artisan db:seed --class=PermissionsSeeder && \
-#     php artisan passport:keys 
+RUN  ls && cat .env && \
+        php artisan key:generate && \
+        php artisan jwt:secret && \
+        php artisan migrate && \
+        php artisan db:seed --class=PermissionsSeeder && \
+        php artisan passport:keys 
 
 # FROM nginx
 # RUN useradd -ms /bin/bash produser
