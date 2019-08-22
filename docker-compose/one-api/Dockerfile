@@ -31,7 +31,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN ls -a
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
-       composer install \
+        composer update --lock && \
+        composer install \
            --ignore-platform-reqs \
            --no-interaction \
            --no-plugins \
