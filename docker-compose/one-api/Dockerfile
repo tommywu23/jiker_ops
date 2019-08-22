@@ -15,6 +15,8 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum install -y bash git openssh && \
     git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /source/api 
 
+FROM composer:1.9 as composer
+
 FROM php:7.2-fpm-alpine as laravel
 
 ARG CODE_PATH=/jikerone/api
@@ -25,10 +27,10 @@ RUN mkdir -p ${CODE_PATH} && \
     cd ${CODE_PATH} 
 
 COPY --from=0 /source/api ${CODE_PATH}
-
-RUN curl -sS https://getcomposer.org/installer | php -- \
-     --install-dir=/usr/local/bin \
-     --filename=composer 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+# RUN curl -sS https://getcomposer.org/installer | php -- \
+#      --install-dir=/usr/local/bin \
+#      --filename=composer 
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
            --ignore-platform-reqs \
