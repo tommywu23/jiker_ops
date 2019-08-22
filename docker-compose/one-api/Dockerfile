@@ -12,7 +12,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
-    git clone -b dev http://${username}:${password}@git.weilaigongzuo.com:jiker-one/api.git /api && \
+    git clone http://${username}:${password}@git.weilaigongzuo.com:jiker-one/api.git /api && \
     git checkout edu-api && \
     cd /api 
 WORKDIR /api
