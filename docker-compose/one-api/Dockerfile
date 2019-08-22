@@ -13,7 +13,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
-    git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /source/api 
+    git clone -b edu-api http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /source/api 
 
 FROM composer:1.9 as composer
 
@@ -31,7 +31,6 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN ls -a
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
-        composer update --lock && \
         composer install \
            --ignore-platform-reqs \
            --no-interaction \
