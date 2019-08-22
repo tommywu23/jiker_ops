@@ -46,7 +46,7 @@ RUN set -ex \
 RUN yarn install 
 RUN yarn run deploy:local
 RUN mkdir -p /opt/wwwroot/oneweb
-COPY --from=0 /app/dist /opt/wwwroot/oneweb
+COPY /app/dist /opt/wwwroot/oneweb
 
 RUN useradd -ms /bin/bash produser
 USER produser
