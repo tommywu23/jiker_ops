@@ -19,14 +19,17 @@ FROM php:7.2-fpm-alpine as laravel
 
 ARG CODE_PATH=/jikerone/api
 
+WORKDIR ${CODE_PATH}
+
+RUN mkdir -p ${CODE_PATH} && \
+    cd ${CODE_PATH} 
+
+COPY --from=0 /source/api ${CODE_PATH}
+
 RUN curl -sS https://getcomposer.org/installer | php -- \
      --install-dir=/usr/local/bin \
-     --filename=composer && \
-    mkdir -p ${CODE_PATH}
-WORKDIR ${CODE_PATH}
-COPY --from=0 /source/api ${CODE_PATH}
-RUN cd ${CODE_PATH} && \
-       composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
+     --filename=composer 
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
            --ignore-platform-reqs \
            --no-interaction \
