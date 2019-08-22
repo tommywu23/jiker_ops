@@ -28,9 +28,8 @@ RUN mkdir -p ${CODE_PATH} && \
 
 COPY --from=0 /source/api ${CODE_PATH}
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-# RUN curl -sS https://getcomposer.org/installer | php -- \
-#      --install-dir=/usr/local/bin \
-#      --filename=composer 
+
+RUN ls -a
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
            --ignore-platform-reqs \
