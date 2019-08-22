@@ -27,9 +27,9 @@ RUN cd /composer/api \
            --no-interaction \
            --no-plugins \
            --no-scripts \
-           --prefer-dist \
-      && cp .env.prod .env \
-      && cat .env 
+           --prefer-dist 
+COPY .env /composer/api/.env 
+RUN  cat .env 
 
 ### 安装程序
 # RUN composer install && \
