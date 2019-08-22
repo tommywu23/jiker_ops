@@ -13,6 +13,8 @@ services:
       - ./www:/var/wwwroot
     networks:
       - jiker_one_net
+    depends_on:
+      - one-pro
   onepro:
     build: 
       context: ./one-pro
@@ -20,7 +22,7 @@ services:
       args:
        - username=tommywu
        - password=Wjs007008
-    container_name: "one-pro"
+    container_name: one-pro
     image: onepro:gm
     restart: always
     ports: 

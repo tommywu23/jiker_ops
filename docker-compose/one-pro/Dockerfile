@@ -51,9 +51,9 @@ RUN ls
 RUN useradd -ms /bin/bash produser
 USER produser
 
-# EXPOSE 9001
+EXPOSE 9001
 
-# CMD yarn run serve --port 9001
+CMD yarn run serve --port 9001
 
 # FROM nginx
 # COPY one-pro.conf /etc/nginx/nginx.conf
