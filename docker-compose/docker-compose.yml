@@ -4,38 +4,37 @@ services:
   mysql-master:
     image: mysql:5.7
     container_name: mysql-master
-    restart: always
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
     networks:
-      testing_net:
-        ipv4_address: 172.28.1.1
+      jiker_one_net:
+        ipv4_address: 192.168.0.252
   mysql-slave:
     image: mysql:5.7
     container_name: mysql-slave
-    restart: always
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
     networks:
-      testing_net:
-        ipv4_address: 172.28.1.2
+      jiker_one_net:
+        ipv4_address: 192.168.0.251 
   redis:
     image: redis
     container_name: one-redis
-    restart: always
     ##command: redis-server --requirepass yourpassword
     ports:
       - 6379:6379
     volumes:
       - ./data:/data
+    networks:
+      jiker_one_net:
+        ipv4_address: 192.168.0.249
 networks:
-  testing_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.28.0.0/16
-
+    jiker_one_net:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 192.168.0.0/16
