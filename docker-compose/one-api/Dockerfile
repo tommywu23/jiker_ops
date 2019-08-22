@@ -18,6 +18,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
 
 
 FROM composer as composer
+
 RUN mkdir -p /composer/api
 COPY --from=0 /api /composer/api
 RUN cd /composer/api \
