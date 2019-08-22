@@ -17,15 +17,15 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     # git clone -b one http://${username}:${password}@git.weilaigongzuo.com/jiker-edu/admin.git /source/admin && \
     # git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /source/pro 
 
-FROM php:7.2-fpm as laravel
+FROM php:7.2-fpm-alpine as laravel
 
 ARG CODE_PATH=/jikerone/api
 
 # RUN useradd -u 1000 -ms /bin/bash produser
 # USER produser
-RUN apk add --no-cache \
-        curl \
-        git \
+# RUN apk add --no-cache \
+#         curl \
+#         git \
 RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
