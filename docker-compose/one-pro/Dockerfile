@@ -18,7 +18,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
     git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
-    cd /app && \
+    cd /app 
 WORKDIR /app
 RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
     yum install -y nodejs 
@@ -51,9 +51,9 @@ RUN ls
 RUN useradd -ms /bin/bash produser
 USER produser
 
-EXPOSE 9001
+# EXPOSE 9001
 
-CMD yarn run serve --port 9001
+# CMD yarn run serve --port 9001
 
 # FROM nginx
 # COPY one-pro.conf /etc/nginx/nginx.conf
