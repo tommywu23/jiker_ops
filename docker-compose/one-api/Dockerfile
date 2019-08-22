@@ -23,7 +23,7 @@ RUN rm -f /usr/local/bin/composer && \
     mv composer.phar /usr/local/bin/composer && \
     mkdir -p /composer/api
 COPY --from=0 /api /composer/api
-RUN cd /composer/api && \
+RUN cd /composer/api && ls -a && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
            --ignore-platform-reqs \
@@ -32,7 +32,7 @@ RUN cd /composer/api && \
            --no-scripts \
            --prefer-dist
 COPY .env /composer/api/.env 
-RUN ls 
+RUN ls -a
 RUN cat .env && \
         php artisan key:generate && \
         php artisan jwt:secret && \
