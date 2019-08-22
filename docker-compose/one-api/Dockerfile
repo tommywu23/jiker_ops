@@ -36,7 +36,7 @@ RUN cd ${CODE_PATH} && \
            --no-interaction \
            --no-plugins \
            --no-scripts \
-            --no-dev \
+           --no-dev \
            --prefer-dist 
 COPY .env ${CODE_PATH} 
 RUN cd ${CODE_PATH} && ls -a && \
