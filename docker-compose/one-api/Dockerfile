@@ -18,9 +18,10 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
 
 FROM php:7.2-fpm-alpine as laravel
 
-RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
-RUN mv composer.phar /usr/local/bin/composer
-RUN mkdir -p /composer/api
+RUN sudo rm -f /usr/local/bin/composer && \
+    sudo curl -s https://getcomposer.org/installer | php && \
+    sudo mv composer.phar /usr/local/bin/composer && \
+    mkdir -p /composer/api
 COPY --from=0 /api /composer/api
 RUN cd /composer/api && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
