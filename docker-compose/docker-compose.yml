@@ -10,7 +10,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=api123
     networks:
-      - db-cluster-1
+      testing_net:
+        ipv4_address: 172.28.1.1
   mysql-slave:
     image: mysql:5.7
     container_name: mysql-slave
@@ -20,7 +21,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=api123
     networks:
-      - db-cluster-2
+      testing_net:
+        ipv4_address: 172.28.1.2
   redis:
     image: redis
     container_name: one-redis
@@ -30,9 +32,10 @@ services:
       - 6379:6379
     volumes:
       - ./data:/data
-  networks:
-    db-cluster-1:
-      driver: db-cluster-1
-    db-cluster-2:
-      driver: db-cluster-2
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
 
