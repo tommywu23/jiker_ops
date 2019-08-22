@@ -23,6 +23,7 @@ ARG CODE_PATH=/jikerone/api
 
 # RUN useradd -u 1000 -ms /bin/bash produser
 # USER produser
+RUN git --version 
 RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \

@@ -1,36 +1,36 @@
 version: '3'
 
 services:
-  nginx:
-    container_name: one-nginx
-    image: nginx:1.11.9
-    restart: always
-    ports: 
-      - 80:80
-    volumes:
-      - ./conf.d:/etc/nginx/conf.d
-      - ./log:/var/log/nginx
-      - ./www:/var/jiker/wwwroot
-    networks: jiker_one_net
-  onepro:
-    build: 
-      context: ./one-pro
-      dockerfile: Dockerfile
-      args:
-       - username=tommywu
-       - password=Wjs007008
-    container_name: one-pro
-    image: onepro:gm
-    restart: always
-    volumes:
-      - /app:/var/jiker/wwwroot/pro
-    ports: 
-      - 9001:9001
-    environment:
-      - npm_config_unsafe_perm=true
-    user: produser
-    networks: jiker_one_net
-  oneapi:
+  # nginx:
+  #   container_name: one-nginx
+  #   image: nginx:1.11.9
+  #   restart: always
+  #   ports: 
+  #     - 80:80
+  #   volumes:
+  #     - ./conf.d:/etc/nginx/conf.d
+  #     - ./log:/var/log/nginx
+  #     - ./www:/var/jiker/wwwroot
+  #   networks: jiker_one_net
+  # pro:
+  #   build: 
+  #     context: ./one-pro
+  #     dockerfile: Dockerfile
+  #     args:
+  #      - username=tommywu
+  #      - password=Wjs007008
+  #   container_name: one-pro
+  #   image: onepro:gm
+  #   restart: always
+  #   volumes:
+  #     - /app:/var/jiker/wwwroot/pro
+  #   ports: 
+  #     - 9001:9001
+  #   environment:
+  #     - npm_config_unsafe_perm=true
+  #   user: produser
+  #   networks: jiker_one_net
+  api:
     build: 
       context: ./one-api
       dockerfile: Dockerfile
@@ -51,27 +51,27 @@ services:
     networks:
       jiker_one_net:
         ipv4_address: 192.168.0.100
-  oneapi:
-    build: 
-      context: ./admin
-      dockerfile: Dockerfile
-      args:
-        - username=tommywu
-        - password=Wjs007008
-    image: oneadmin:gm
-    container_name: one-admin
-    volumes:
-      - /jikerone/admin:/var/jiker/wwwroot/admin
-      - /source/admin:/var/jiker/git/admin
-    user: produser
-    command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
-    depends_on:
-      - mysql-master
-      - mysql-slave
-      - redis
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.101
+  # admin:
+  #   build: 
+  #     context: ./admin
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - username=tommywu
+  #       - password=Wjs007008
+  #   image: oneadmin:gm
+  #   container_name: one-admin
+  #   volumes:
+  #     - /jikerone/admin:/var/jiker/wwwroot/admin
+  #     - /source/admin:/var/jiker/git/admin
+  #   user: produser
+  #   command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
+  #   depends_on:
+  #     - mysql-master
+  #     - mysql-slave
+  #     - redis
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.101
   mysql-master:
     image: mysql:5.7
     container_name: mysql-master
