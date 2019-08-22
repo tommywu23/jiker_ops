@@ -16,7 +16,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
     git checkout edu-api 
 
-FROM php:7.2-fpm-alpine as laravel
+FROM php:7.2-fpm as laravel
 ARG CODE_PATH=/jikerone/api
 
 RUN rm -f /usr/local/bin/composer && \
@@ -35,7 +35,7 @@ RUN cd ${CODE_PATH} && ls -a && \
            --prefer-dist
 COPY .env ${CODE_PATH} 
 RUN cd ${CODE_PATH} && ls -a && \
-    useradd -ms /bin/bash produser
+    useradd -u 1000 -ms /bin/bash produser
 USER produser
 EXPOSE 9002
 CMD ["php-fpm"]  
