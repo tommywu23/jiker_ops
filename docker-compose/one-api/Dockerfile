@@ -23,6 +23,7 @@ RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     mkdir -p ${CODE_PATH}
+WORKDIR ${CODE_PATH}
 COPY --from=0 /api ${CODE_PATH}
 RUN cd ${CODE_PATH} && ls -a && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
@@ -33,16 +34,19 @@ RUN cd ${CODE_PATH} && ls -a && \
            --no-scripts \
            --prefer-dist
 COPY .env ${CODE_PATH} 
-RUN cd ${CODE_PATH} && ls -a
-RUN  php artisan key:generate && \
-        php artisan jwt:secret && \
-        php artisan migrate && \
-        php artisan db:seed --class=PermissionsSeeder && \
-        php artisan passport:keys 
+RUN cd ${CODE_PATH} && ls -a && \
+    useradd -ms /bin/bash produser
+USER produser
+EXPOSE 9002
+CMD ["php-fpm"]  
 
-# FROM nginx
+# FROM nginx 
+
+# ARG RUNTIME_PATH=/var/wwwroot/api
+
 # RUN useradd -ms /bin/bash produser
 # USER produser
-# RUN mkdir -p /opt/wwwroot/
-# COPY --from=0 /backend /opt/wwwroot/
+# RUN mkdir -p ${RUNTIME_PATH}
+# COPY --from=laravel /jikerone/api ${RUNTIME_PATH}
+# RUN cd ${RUNTIME_PATH} && ls -a
 # COPY one-api.conf /etc/nginx/nginx.conf    
