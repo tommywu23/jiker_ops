@@ -22,7 +22,7 @@ RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     mkdir -p /composer/api
-COPY --from=0 /api /composer/api
+COPY --from=0 /api /jikerone/api
 RUN cd /composer/api && ls -a && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
@@ -31,7 +31,8 @@ RUN cd /composer/api && ls -a && \
            --no-plugins \
            --no-scripts \
            --prefer-dist
-COPY .env /composer/api/.env 
+RUN ls -a
+COPY .env /jikerone/api/.env 
 RUN ls -a
 RUN cat .env && \
         php artisan key:generate && \
