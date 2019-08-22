@@ -22,7 +22,7 @@ services:
       - MYSQL_ROOT_PASSWORD=api123
     networks:
       jiker_one_net:
-        ipv4_address: 172.17.0.251 
+        ipv4_address: 172.20.0.251 
   redis:
     image: redis
     container_name: one-redis
@@ -34,10 +34,10 @@ services:
       - ./data:/data
     networks:
       jiker_one_net:
-        ipv4_address: 172.17.0.249
+        ipv4_address: 172.20.0.249
 networks:
     jiker_one_net:
         driver: bridge
         ipam:
             config:
-                - subnet: 172.17.0.0/16
+                - subnet: 172.20.0.0/16
