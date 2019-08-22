@@ -22,7 +22,7 @@ ARG CODE_PATH=/jikerone/api
 RUN rm -f /usr/local/bin/composer && \
     curl -sS https://getcomposer.org/installer | php -- \
      --install-dir=/usr/local/bin \
-     --filename=composer \
+     --filename=composer && \
     mkdir -p ${CODE_PATH}
 WORKDIR ${CODE_PATH}
 COPY --from=0 /source/api ${CODE_PATH}
