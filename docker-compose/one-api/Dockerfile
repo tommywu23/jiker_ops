@@ -23,6 +23,7 @@ RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     mkdir -p ${CODE_PATH}
+WORKDIR ${CODE_PATH}
 COPY --from=0 /api ${CODE_PATH}
 RUN cd ${CODE_PATH} && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
@@ -35,7 +36,6 @@ RUN cd ${CODE_PATH} && \
 COPY .env ${CODE_PATH} 
 RUN cd ${CODE_PATH} && ls -a && \
     useradd -u 1000 -ms /bin/bash produser
-WORKDIR ${CODE_PATH}
 USER produser
 EXPOSE 9002
 CMD ["php-fpm"]  
