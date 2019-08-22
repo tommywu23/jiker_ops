@@ -39,6 +39,8 @@ services:
        - password=Wjs007008
     image: oneapi:gm
     container_name: one-api
+    ports:
+      - 9002:9002
     volumes:
       - /jikerone/api:/var/jiker/wwwroot/api
       - /source/api:/var/jiker/git/api
