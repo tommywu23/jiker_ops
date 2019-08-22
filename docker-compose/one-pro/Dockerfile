@@ -19,7 +19,6 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum install -y bash git openssh && \
     git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
     cd /app && \
-    ls
 WORKDIR /app
 RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash && \
     yum install -y nodejs 
@@ -45,8 +44,9 @@ RUN set -ex \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 RUN yarn install 
 RUN yarn run deploy:local
-RUN mkdir -p /opt/wwwroot/oneweb
-COPY /app/dist /opt/wwwroot/oneweb
+RUN ls
+# RUN mkdir -p /opt/wwwroot/oneweb
+# COPY /app/dist /opt/wwwroot/oneweb
 
 RUN useradd -ms /bin/bash produser
 USER produser
