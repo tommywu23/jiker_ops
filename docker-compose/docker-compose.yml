@@ -10,11 +10,3 @@ services:
        - password=Wjs007008
     image: oneapi:gm
     container_name: one-api
-    networks:
-      - jiker_one_net
-networks:
-    jiker_one_net:
-        driver: bridge
-        ipam:
-            config:
-                - subnet: 192.168.0.0/16
