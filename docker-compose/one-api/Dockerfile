@@ -34,8 +34,7 @@ RUN cd ${CODE_PATH} && ls -a && \
            --prefer-dist
 COPY .env ${CODE_PATH} 
 RUN cd ${CODE_PATH} && ls -a
-RUN cat ${CODE_PATH}/.env && \
-        php artisan key:generate && \
+RUN  php artisan key:generate && \
         php artisan jwt:secret && \
         php artisan migrate && \
         php artisan db:seed --class=PermissionsSeeder && \
