@@ -14,7 +14,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
-    git checkout edu-api 
+    git checkout dev 
 
 FROM php:7.2-fpm as laravel
 
