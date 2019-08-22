@@ -16,11 +16,11 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
     git checkout edu-api 
 
+
 FROM composer as composer
 RUN mkdir -p /composer/api
 COPY --from=0 /api /composer/api
 RUN cd /composer/api \
-      && ls \
       && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
       && composer install \
            --ignore-platform-reqs \
