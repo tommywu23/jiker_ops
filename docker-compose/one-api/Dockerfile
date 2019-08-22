@@ -23,13 +23,9 @@ ARG CODE_PATH=/jikerone/api
 
 # RUN useradd -u 1000 -ms /bin/bash produser
 # USER produser
-RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
-    yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
-    yum clean all && \
-    yum --enablerepo=base clean metadata && \
-    yum --enablerepo=updates clean metadata && \
-    yum makecache fast && \
-    yum install -y bash git 
+RUN apk add --no-cache \
+        curl \
+        git \
 RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
