@@ -29,7 +29,6 @@ RUN mkdir -p ${CODE_PATH} && \
 COPY --from=0 /source/api ${CODE_PATH}
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-RUN ls -a
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
         composer install \
            --ignore-platform-reqs \
@@ -39,7 +38,7 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --no-dev \
            --prefer-dist 
 COPY .env ${CODE_PATH} 
-RUN cd ${CODE_PATH} && ls -a && \
+RUN ln -sf /bin/bash /bin/sh && \
     useradd -u 1000 -ms /bin/bash produser
 USER produser
 EXPOSE 9002
