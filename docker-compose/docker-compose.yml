@@ -9,6 +9,8 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
+    networks:
+      - db-cluster-1
   mysql-slave:
     image: mysql:5.7
     container_name: mysql-slave
@@ -17,6 +19,8 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
+    networks:
+      - db-cluster-2
   redis:
     image: redis
     container_name: one-redis
@@ -26,3 +30,9 @@ services:
       - 6379:6379
     volumes:
       - ./data:/data
+  networks:
+    db-cluster-1:
+      driver: db-cluster-1
+    db-cluster-2:
+      driver: db-cluster-2
+
