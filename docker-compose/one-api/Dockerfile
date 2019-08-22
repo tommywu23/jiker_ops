@@ -17,13 +17,14 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     git checkout edu-api 
 
 FROM php:7.2-fpm-alpine as laravel
+ARG CODE_PATH=/jikerone/api
 
 RUN rm -f /usr/local/bin/composer && \
     curl -s https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
-    mkdir -p /composer/api
-COPY --from=0 /api /jikerone/api
-RUN cd /composer/api && ls -a && \
+    mkdir -p ${CODE_PATH}
+COPY --from=0 /api ${CODE_PATH}
+RUN cd ${CODE_PATH} && ls -a && \
        composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && \
        composer install \
            --ignore-platform-reqs \
@@ -32,7 +33,7 @@ RUN cd /composer/api && ls -a && \
            --no-scripts \
            --prefer-dist
 RUN ls -a
-COPY .env /jikerone/api/.env 
+COPY .env ${CODE_PATH}/.env 
 RUN ls -a
 RUN cat .env && \
         php artisan key:generate && \
