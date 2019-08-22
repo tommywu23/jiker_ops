@@ -1,56 +1,58 @@
 version: '3'
 
 services:
-  # nginx:
-  #   container_name: one-nginx
-  #   image: nginx:1.11.9
-  #   restart: always
-  #   ports: 
-  #     - 80:80
-  #   volumes:
-  #     - ./conf.d:/etc/nginx/conf.d
-  #     - ./log:/var/log/nginx
-  #     - ./www:/var/wwwroot
-  #   networks:
-  #     - jiker_one_net
-  # onepro:
-  #   build: 
-  #     context: ./one-pro
-  #     dockerfile: Dockerfile
-  #     args:
-  #      - username=tommywu
-  #      - password=Wjs007008
-  #   container_name: one-pro
-  #   image: onepro:gm
-  #   restart: always
-  #   ports: 
-  #     - 9001:9001
-  #   environment:
-  #     - npm_config_unsafe_perm=true
-  #   user: produser
-  #   networks:
-  #     - jiker_one_net
-  oneapi:
+  nginx:
+    container_name: one-nginx
+    image: nginx:1.11.9
+    restart: always
+    ports: 
+      - 80:80
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./log:/var/log/nginx
+      - ./www:/var/jiker/wwwroot
+    networks:
+      - jiker_one_net
+  onepro:
     build: 
-      context: ./one-api
+      context: ./one-pro
       dockerfile: Dockerfile
       args:
        - username=tommywu
        - password=Wjs007008
-    image: oneapi:gm
-    container_name: one-api
+    container_name: one-pro
+    image: onepro:gm
+    restart: always
     volumes:
-      - /jikerone/api:/var/jiker/wwwroot/api
-      - /api:/var/jiker/git/api
+      - /app:/var/jiker/wwwroot/pro
+    ports: 
+      - 9001:9001
+    environment:
+      - npm_config_unsafe_perm=true
     user: produser
-    command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
-    depends_on:
-      - mysql-master
-      - mysql-slave
-      - redis
     networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.100
+      - jiker_one_net
+  # oneapi:
+  #   build: 
+  #     context: ./one-api
+  #     dockerfile: Dockerfile
+  #     args:
+  #      - username=tommywu
+  #      - password=Wjs007008
+  #   image: oneapi:gm
+  #   container_name: one-api
+  #   volumes:
+  #     - /jikerone/api:/var/jiker/wwwroot/api
+  #     - /api:/var/jiker/git/api
+  #   user: produser
+  #   command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
+  #   depends_on:
+  #     - mysql-master
+  #     - mysql-slave
+  #     - redis
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.100
   mysql-master:
     image: mysql:5.7
     container_name: mysql-master

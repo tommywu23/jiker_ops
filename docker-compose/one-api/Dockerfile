@@ -4,7 +4,7 @@ ARG username
 ARG password
 
 #### git获取代码
-WORKDIR /api
+WORKDIR /source/api
 RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
     yum clean all && \
@@ -13,8 +13,9 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
-    git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
-    git checkout dev 
+    git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /source/api 
+    # git clone -b one http://${username}:${password}@git.weilaigongzuo.com/jiker-edu/admin.git /source/admin && \
+    # git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /source/pro 
 
 FROM php:7.2-fpm as laravel
 
