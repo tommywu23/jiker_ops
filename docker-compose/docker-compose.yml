@@ -11,7 +11,8 @@ services:
     image: oneapi:gm
     container_name: one-api
     volumes:
-      - /jikerone/api:/var/wwwroot
+      - /jikerone/api:/var/wwwroot/api
+      - /api:/var/git/api
     user: produser
     command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
     depends_on:
