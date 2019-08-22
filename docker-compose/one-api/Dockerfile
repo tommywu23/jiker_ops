@@ -32,7 +32,8 @@ RUN cd /composer/api && \
            --no-scripts \
            --prefer-dist
 COPY .env /composer/api/.env 
-RUN  ls && cat .env && \
+RUN ls 
+RUN cat .env && \
         php artisan key:generate && \
         php artisan jwt:secret && \
         php artisan migrate && \
