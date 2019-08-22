@@ -4,6 +4,7 @@ ARG username
 ARG password
 
 #### git获取代码
+WORKDIR /api
 RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo && \
     yum clean all && \
@@ -12,10 +13,9 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum makecache fast && \
     yum install -y docker-ce && \
     yum install -y bash git openssh && \
-    git clone http://${username}:${password}@git.weilaigongzuo.com:jiker-one/api.git /api && \
+    git clone http://${username}:${password}@git.weilaigongzuo.com/jiker-one/api.git /api && \
     git checkout edu-api && \
     cd /api 
-WORKDIR /api
 
 ### 安装程序
 RUN cd api && \
@@ -32,4 +32,4 @@ RUN useradd -ms /bin/bash produser
 USER produser
 RUN mkdir -p /opt/wwwroot/
 COPY --from=0 /backend /opt/wwwroot/
-COPY one-pro.conf /etc/nginx/nginx.conf    
+COPY one-api.conf /etc/nginx/nginx.conf    
