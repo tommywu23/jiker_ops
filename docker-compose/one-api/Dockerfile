@@ -39,7 +39,8 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --prefer-dist 
 COPY .env ${CODE_PATH} 
 
-RUN  adduser -D -g '' produser
+RUN  adduser -D -g '' produser && \
+     chown -R ${CODE_PATH}:${CODE_PATH} 
 USER produser
 
 EXPOSE 9002
