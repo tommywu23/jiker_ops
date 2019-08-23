@@ -43,7 +43,14 @@ RUN  adduser -D -g '' produser
 USER produser
 
 EXPOSE 9002
-CMD ["php-fpm"]  
+CMD ["php-fpm"]
+# CMD php-fpm && \
+#         /bin/sh -c \ 
+#         php artisan key:generate && \
+#         php artisan jwt:secret && \
+#         php artisan migrate && \
+#         php artisan db:seed --class=PermissionsSeeder && \
+#         php artisan passport:keys  
 
 # FROM nginx 
 

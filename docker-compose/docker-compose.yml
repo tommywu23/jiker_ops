@@ -45,7 +45,7 @@ services:
       - /jikerone/api:/var/jiker/wwwroot/api
       - /source/api:/var/jiker/git/api
     user: produser
-    # command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
+    command: ./one-api/run.sh
     depends_on:
       - mysql-master
       - mysql-slave
