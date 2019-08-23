@@ -44,7 +44,7 @@ services:
     volumes:
       - /jikerone/api:/var/jiker/wwwroot/api
       - /source/api:/var/jiker/git/api
-    user: produser
+    user: www
     # command: ./one-api/run.sh
     command:
       - /bin/sh
