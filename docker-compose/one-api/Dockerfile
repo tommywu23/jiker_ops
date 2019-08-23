@@ -19,6 +19,8 @@ FROM composer:1.9 as composer
 
 FROM php:7.2-fpm-alpine as laravel
 
+RUN docker-php-ext-install mysqli
+
 ARG CODE_PATH=/jikerone/api
 
 WORKDIR ${CODE_PATH}
