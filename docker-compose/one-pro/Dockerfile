@@ -45,5 +45,8 @@ RUN set -ex \
 RUN yarn install && \
     yarn run deploy:local && \
     ls -a
+RUN  addgroup -s www && adduser -D -r -g '' www www && \
+     chown -R www:www /app
+USER www
 
 CMD ["/bin/bash"]

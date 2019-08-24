@@ -22,6 +22,7 @@ services:
     image: onepro:gm
     restart: always
     tty: true
+    user: www
     volumes:
       - ./www/pro:/app
     environment:
