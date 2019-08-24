@@ -26,3 +26,32 @@ services:
       - ./www/pro:/app
     environment:
       - npm_config_unsafe_perm=true
+  api:
+    build: 
+      context: ./one-api
+      dockerfile: Dockerfile
+      args:
+       - username=tommywu
+       - password=Wjs007008
+    image: oneapi:gm
+    container_name: one-api
+    ports:
+      - 9002:9002
+    volumes:
+      - /jikerone/api:/www/api
+      - /source/api:/www/git/api
+    user: www
+    # command: ./one-api/run.sh
+    command:
+      - /bin/sh
+      - -c
+      - |
+        php artisan key:generate 
+        php artisan jwt:secret 
+        php artisan migrate 
+        php artisan db:seed --class=PermissionsSeeder 
+        php artisan passport:keys  
+    depends_on:
+      - mysql-master
+      - mysql-slave
+      - redis
