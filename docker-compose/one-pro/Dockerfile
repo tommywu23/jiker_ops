@@ -46,4 +46,4 @@ RUN yarn install && \
     yarn run deploy:local && \
     ls -a
 
-CMD ["bin/bash"]
+CMD ["/bin/bash"]
