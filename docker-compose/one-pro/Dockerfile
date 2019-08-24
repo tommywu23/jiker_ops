@@ -46,4 +46,4 @@ RUN yarn install && \
     yarn run deploy:local && \
     ls -a
 
-CMD ["echo","hello Jiker one pro"]
+CMD ["bin/bash"]
