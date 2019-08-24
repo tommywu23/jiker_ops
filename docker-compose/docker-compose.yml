@@ -38,8 +38,8 @@ services:
     ports:
       - 9002:9002
     volumes:
-      - /jikerone/api:/www/api
-      - /source/api:/www/git/api
+      - ./www/api:/jikerone/api
+      - ./www/git/api:/source/api
     user: www
     # command: ./one-api/run.sh
     command:
@@ -55,3 +55,37 @@ services:
       - mysql-master
       - mysql-slave
       - redis
+    networks:
+      jiker_one_net:
+        ipv4_address: 192.168.0.200
+  mysql-master:
+    image: mysql:5.7
+    container_name: mysql-master
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=api123
+    networks:
+      jiker_one_net:
+        ipv4_address: 192.168.0.252
+  mysql-slave:
+    image: mysql:5.7
+    container_name: mysql-slave
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=api123
+    networks:
+      jiker_one_net:
+        ipv4_address: 192.168.0.251 
+  redis:
+    image: redis
+    container_name: one-redis
+    ##command: redis-server --requirepass yourpassword
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data:/data
+    networks:
+      jiker_one_net:
+        ipv4_address: 192.168.0.249
