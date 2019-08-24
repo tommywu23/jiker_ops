@@ -23,7 +23,7 @@ services:
   #   image: onepro:gm
   #   restart: always
   #   volumes:
-  #     - /app:/var/jiker/wwwroot/pro
+  #     - ./one-pro:/app
   #   ports: 
   #     - 9001:9001
   #   environment:

@@ -43,9 +43,9 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 RUN yarn install 
-RUN yarn run deploy:local && \
-    ls && \
-    useradd -ms /bin/bash produser
-USER produser
+RUN yarn run deploy:local 
+RUN  addgroup -r www && adduser -D -r -g '' www www && \
+     chown -R www:www ${CODE_PATH} 
+USER www
 
-CMD yarn run serve --port 9001
+CMD ["/bin/sh"]
