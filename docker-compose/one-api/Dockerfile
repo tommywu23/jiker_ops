@@ -41,8 +41,8 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --prefer-dist 
 COPY .env ${CODE_PATH} 
 
-RUN  adduser -D -g '' www && \
-     chown -R www ${CODE_PATH} 
+RUN  addgroup -r www && adduser -D -r -g '' www www && \
+     chown -R www:www ${CODE_PATH} 
 USER www
 
 EXPOSE 9002
