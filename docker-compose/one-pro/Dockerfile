@@ -15,7 +15,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
     yum --enablerepo=base clean metadata && \
     yum --enablerepo=updates clean metadata && \
     yum makecache fast && \
-    yum install -y docker-ce && \
+    # yum install -y docker-ce && \
     yum install -y bash git openssh && \
     git clone -b dev http://${username}:${password}@git.weilaigongzuo.com/weilai/jiker-one-pro.git /app && \
     cd /app 
@@ -42,11 +42,11 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-RUN yarn install && \
-    yarn run deploy:local && \
-    ls -a
-RUN  groupadd -r www && useradd -r -g www www && \
-     chown -R www:www /app
-USER www
+# RUN yarn install && \
+#     yarn run deploy:local  
+RUN ls -a
+# RUN  groupadd -r www && useradd -r -g www www && \
+#      chown -R www:www /app
+# USER www
 
 CMD ["/bin/bash"]

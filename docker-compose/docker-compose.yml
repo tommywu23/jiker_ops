@@ -27,6 +27,10 @@ services:
       - ./www/pro:/app
     environment:
       - npm_config_unsafe_perm=true
+    # command:
+    #   - /bin/sh
+    #   - -c
+    #   - |
   api:
     build: 
       context: ./one-api
