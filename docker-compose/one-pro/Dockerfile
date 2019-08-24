@@ -44,8 +44,5 @@ RUN set -ex \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 RUN yarn install 
 RUN yarn run deploy:local 
-RUN  addgroup -r www && adduser -D -r -g '' www www && \
-     chown -R www:www ${CODE_PATH} 
-USER www
 
 CMD ["/bin/sh"]
