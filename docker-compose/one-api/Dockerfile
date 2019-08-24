@@ -19,11 +19,16 @@ FROM composer:1.9 as composer
 
 FROM php:7.2-fpm-alpine as laravel
 
+### 安装PHP依赖
 RUN   apk update \                                                                                                                                                                                                                        
   &&   apk add ca-certificates wget \                                                                                                                                                                                                      
   &&   update-ca-certificates
-RUN docker-php-ext-install mysqli && \
-    docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install bcmath bz2 calendar Core ctype curl \\
+        date dom exif fileinfo filter ftp gd gettext hash iconv json ldap \\
+        libxml mbstring mcrypt mysqli mysqlnd openssl pcntl pcre PDO pdo_mysql \\
+        pdo_sqlite Phar posix readline Reflection session shmop SimpleXML soap \\
+        sockets SPL sqlite3 standard sysvmsg sysvsem sysvshm tokenizer wddx \\
+        xml xmlreader xmlrpc xmlwriter xsl zip zlib
 
 ARG CODE_PATH=/jikerone/api
 
