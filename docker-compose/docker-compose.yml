@@ -21,6 +21,7 @@ services:
     container_name: one-pro
     image: onepro:gm
     restart: always
+    tty: true
     volumes:
       - ./www/pro:/app
     environment:
