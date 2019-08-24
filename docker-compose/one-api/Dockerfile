@@ -17,7 +17,7 @@ RUN yum install -y yum-utils device-mapper-persistent-data lvm2 && \
 
 FROM composer:1.9 as composer
 
-FROM  daocloud.io/library/php:7.1.13-fpm
+FROM daocloud.io/library/php:7.2.16-fpm
 
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
