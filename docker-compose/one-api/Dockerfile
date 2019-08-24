@@ -26,9 +26,9 @@ RUN   apk update \
 RUN docker-php-ext-install bcmath bz2 calendar ctype curl \
         date dom exif fileinfo filter ftp gd gettext hash iconv json ldap \
         libxml mbstring mysqli mysqlnd openssl pcntl pcre pdo pdo_mysql \
-        pdo_sqlite posix readline session shmop SimpleXML soap \
-        sockets SPL sqlite3 standard sysvmsg sysvsem sysvshm tokenizer wddx \
-        xml xmlreader xmlrpc xmlwriter xsl zip zlib Core mcrypt Phar Reflection
+        pdo_sqlite posix readline session shmop soap \
+        sockets sqlite3 standard sysvmsg sysvsem sysvshm tokenizer wddx \
+        xml xmlreader xmlrpc xmlwriter xsl zip zlib Core mcrypt Phar Reflection SimpleXML SPL
 
 ARG CODE_PATH=/jikerone/api
 
