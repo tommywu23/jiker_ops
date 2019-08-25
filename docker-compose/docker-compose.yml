@@ -12,13 +12,13 @@ services:
       - ./conf.d:/etc/nginx/conf.d
       - ./log:/var/log/nginx
   api:
-    build: 
-      context: ./one-api
-      dockerfile: Dockerfile
-      args:
-       - username=tommywu
-       - password=Wjs007008
-    image: oneapi:gm
+    # build: 
+    #   context: ./one-api
+    #   dockerfile: Dockerfile
+    #   args:
+    #    - username=tommywu
+    #    - password=Wjs007008
+    image: jiker/one-web:0.0.1
     container_name: one-api
     tty: true
     ports:
