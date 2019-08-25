@@ -23,6 +23,8 @@ services:
     restart: always
     tty: true
     # user: www
+    ports: 
+      - 9001:9001
     volumes:
       - ./www/pro:/app
     environment:

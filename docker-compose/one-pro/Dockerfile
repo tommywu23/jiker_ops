@@ -49,4 +49,5 @@ RUN ls -a
 #      chown -R www:www /app
 # USER www
 
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
+CMD yarn run serve --port 9001
