@@ -23,21 +23,20 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 
 RUN apt-get update
-RUN apt-get install  libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
-        libldap2-dev   gettext ldap mysqli pcntl pdo_mysql  libxml2-dev libxslt1-dev
-
+RUN apt-get install libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
+        libldap2-dev libxml2-dev libxslt1-dev
  
 RUN echo -e "\n" | pecl  install http://pecl.php.net/get/mcrypt-1.0.1.tgz
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install  gd
 RUN docker-php-ext-install bcmath bz2 calendar ctype curl \
         date dom exif fileinfo filter ftp gettext hash iconv json ldap \
-        libxml mbstring mysqli mysqlnd openssl pcntl pcre pdo pdo_mysql \
+        libxml mbstring mysqli mysqlnd openssl pcntl pcre  pdo_mysql \
         pdo_sqlite posix readline session shmop soap \
         sockets sqlite3 standard sysvmsg sysvsem sysvshm tokenizer wddx \
         xml xmlreader xmlrpc xmlwriter xsl zip zlib 
 RUN docker-php-ext-enable mcrypt
-# Core mcrypt Phar Reflection SimpleXML SPL
+# Core mcrypt Phar Reflection SimpleXML SPL PDO
 
 ARG CODE_PATH=/jikerone/api
 
