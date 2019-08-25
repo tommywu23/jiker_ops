@@ -23,7 +23,7 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y libbz2-dev libfreetype6-dev libjpeg62-turbo-dev \
-        libmcrypt-dev libpng-dev libldap2-dev gettext ldap libxml2-dev libxslt1-dev 
+        libmcrypt-dev libpng-dev libldap2-dev gettext libxml2-dev libxslt1-dev 
 
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install bz2
