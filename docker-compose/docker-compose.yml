@@ -22,7 +22,7 @@ services:
     image: onepro:gm
     restart: always
     tty: true
-    # user: www
+    user: www
     ports: 
       - 9001:9001
     volumes:
