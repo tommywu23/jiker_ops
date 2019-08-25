@@ -45,9 +45,11 @@ RUN set -ex \
 RUN yarn install && \
     yarn run deploy:local  
 RUN ls -a
-RUN  groupadd -r www && useradd -r -g www www && \
-     chown -R www:www /app
-USER www
+# RUN  groupadd -r www && useradd -r -g www www && \
+#      chown -R www:www /app
+# USER www
 
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
 # CMD yarn run serve --port 9001
+FROM nginx:1.11.9
+COPY --from=0 /app/dist /var/wwwroot/jiker/pro
