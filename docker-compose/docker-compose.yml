@@ -18,7 +18,7 @@ services:
     #   args:
     #    - username=tommywu
     #    - password=Wjs007008
-    image: jiker/one-web:0.0.1
+    image: jiker/one-api:0.0.1
     container_name: one-api
     tty: true
     ports:
