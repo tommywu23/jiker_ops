@@ -75,7 +75,7 @@ RUN  chown -R www-data.www-data ${CODE_PATH}
 USER www-data
 
 EXPOSE 9002
-CMD ["php-fpm"]
+
 # CMD php-fpm && \
 #         /bin/sh -c \ 
 #         php artisan key:generate && \
