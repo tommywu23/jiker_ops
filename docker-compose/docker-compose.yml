@@ -3,32 +3,14 @@ version: '3'
 services:
   nginx:
     container_name: one-nginx
-    image: nginx:1.11.9
+    image: jiker/onepro-nginx:0.0.1
     restart: always
     ports: 
       - 80:80
     volumes:
       - ./conf.d:/etc/nginx/conf.d
       - ./log:/var/log/nginx
-      - ./www:/var/jiker/wwwroot
-  pro:
-    build: 
-      context: ./one-pro
-      dockerfile: Dockerfile
-      args:
-       - username=tommywu
-       - password=Wjs007008
-    container_name: one-pro
-    image: onepro:gm
-    restart: always
-    tty: true
-    user: www
-    ports: 
-      - 9001:9001
-    volumes:
-      - ./www/pro:/app
-    environment:
-      - npm_config_unsafe_perm=true
+      - ./www:/var/wwwroot
   # api:
   #   build: 
   #     context: ./one-api
