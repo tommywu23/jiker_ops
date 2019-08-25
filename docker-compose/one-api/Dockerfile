@@ -71,7 +71,7 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --prefer-dist 
 COPY .env ${CODE_PATH} 
 
-RUN  addgroup -s www && adduser -D -r -g '' www www && \
+RUN  addgroup -g 33 www && adduser -g 33 -u 33 www www && \
      chown -R www:www ${CODE_PATH} 
 USER www
 
