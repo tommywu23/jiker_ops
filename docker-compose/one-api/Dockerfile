@@ -22,7 +22,8 @@ FROM daocloud.io/library/php:7.2.16-fpm
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev  libldap2-dev   gettext ldap mysqli pcntl pdo_mysql  libxml2-dev libxslt1-dev
+RUN apt-get update && apt-get install -y libbz2-dev libfreetype6-dev libjpeg62-turbo-dev \
+        libmcrypt-dev libpng-dev libldap2-dev gettext ldap libxml2-dev libxslt1-dev 
 
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install bz2
@@ -32,8 +33,8 @@ RUN docker-php-ext-install iconv
  
 RUN echo -e "\n" | pecl  install http://pecl.php.net/get/mcrypt-1.0.2.tgz
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-install  gd
-RUN docker-php-ext-install  gettext ldap mysqli pcntl pdo_mysql
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install gettext ldap mysqli pcntl pdo_mysql
 RUN docker-php-ext-install shmop soap sockets sysvmsg sysvsem sysvshm wddx xmlrpc xsl zip
 
 # RUN pecl install http://pecl.php.net/get/mcrypt-1.0.2.tgz && \
