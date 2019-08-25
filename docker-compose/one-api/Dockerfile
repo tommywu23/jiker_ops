@@ -22,11 +22,11 @@ FROM daocloud.io/library/php:7.2.16-fpm
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 
-RUN apt-get update && apt-get install libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
-        libldap2-dev libxml2-dev libxslt1-dev
+# RUN apt-get update && apt-get install libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
+#         libldap2-dev libxml2-dev libxslt1-dev
  
-RUN echo -e "\n" | pecl install http://pecl.php.net/get/mcrypt-1.0.1.tgz && \
-	pecl install http://pecl.php.net/get/phar-2.0.0.tgz && \
+RUN pecl install http://pecl.php.net/get/mcrypt-1.0.2.tgz && \
+	pecl install http://pecl.php.net/get/phar-2.0.0.tgz 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install  gd
 RUN docker-php-ext-install bcmath bz2 calendar ctype curl \
