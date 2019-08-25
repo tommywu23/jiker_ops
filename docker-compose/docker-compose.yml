@@ -25,7 +25,7 @@ services:
     volumes:
       - ./www/api:/jikerone/api
       - ./www/git/api:/source/api
-    user: www
+    user: www-data
     # command: ./one-api/run.sh
     command:
       - /bin/sh
