@@ -23,9 +23,9 @@ services:
     tty: true
     ports:
       - 9002:9002
-    volumes:
-      - ./www/api:/jikerone/api
-      - ./www/git/api:/source/api
+    # volumes:
+    #   - ./www/api:/jikerone/api
+    #   - ./www/git/api:/source/api
     user: www-data
     # command: ./one-api/run.sh
     command:
