@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  nginx:
+  web:
     container_name: one-web
-    image: jiker/onepro-web:0.0.1
+    image: jiker/one-web:0.0.1
     restart: always
     tty: true
     ports: 
