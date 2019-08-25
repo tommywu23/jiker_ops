@@ -22,8 +22,8 @@ FROM daocloud.io/library/php:7.2.16-fpm
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 RUN sed -i 's/security.debian.org/mirrors.aliyun.com/g'  /etc/apt/sources.list
 
-# RUN apt-get update && apt-get install libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
-#         libldap2-dev libxml2-dev libxslt1-dev
+RUN apt-get update && apt-get install -y libbz2-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev \
+        libldap2-dev libxml2-dev libxslt1-dev
  
 RUN pecl install http://pecl.php.net/get/mcrypt-1.0.2.tgz && \
 	pecl install http://pecl.php.net/get/phar-2.0.0.tgz 
