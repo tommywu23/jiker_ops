@@ -1,104 +1,102 @@
 version: '3'
 
 services:
-  # nginx:
-  #   container_name: one-nginx
-  #   image: nginx:1.11.9
-  #   restart: always
-  #   ports: 
-  #     - 80:80
-  #   volumes:
-  #     - ./conf.d:/etc/nginx/conf.d
-  #     - ./log:/var/log/nginx
-  #     - ./www:/var/jiker/wwwroot
-  # pro:
-  #   build: 
-  #     context: ./one-pro
-  #     dockerfile: Dockerfile
-  #     args:
-  #      - username=tommywu
-  #      - password=Wjs007008
-  #   container_name: one-pro
-  #   image: onepro:gm
-  #   restart: always
-  #   tty: true
-  #   # user: www
-  #   ports: 
-  #     - 9001:9001
-  #   volumes:
-  #     - ./www/pro:/app
-  #   environment:
-  #     - npm_config_unsafe_perm=true
-    # command:
-    #   - /bin/sh
-    #   - -c
-    #   - |
-  api:
+  nginx:
+    container_name: one-nginx
+    image: nginx:1.11.9
+    restart: always
+    ports: 
+      - 80:80
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./log:/var/log/nginx
+      - ./www:/var/jiker/wwwroot
+  pro:
     build: 
-      context: ./one-api
+      context: ./one-pro
       dockerfile: Dockerfile
       args:
        - username=tommywu
        - password=Wjs007008
-    image: oneapi:gm
-    container_name: one-api
-    ports:
-      - 9002:9002
+    container_name: one-pro
+    image: onepro:gm
+    restart: always
+    tty: true
+    # user: www
+    ports: 
+      - 9001:9001
     volumes:
-      - ./www/api:/jikerone/api
-      - ./www/git/api:/source/api
-    user: www
-    # command: ./one-api/run.sh
-    command:
-      - /bin/sh
-      - -c
-      - |
-        php artisan key:generate 
-        php artisan jwt:secret 
-        php artisan migrate 
-        php artisan db:seed --class=PermissionsSeeder 
-        php artisan passport:keys  
-    depends_on:
-      - mysql-master
-      - mysql-slave
-      - redis
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.200
-  mysql-master:
-    image: mysql:5.7
-    container_name: mysql-master
-    ports:
-      - 3306:3306
+      - ./www/pro:/app
     environment:
-      - MYSQL_ROOT_PASSWORD=api123
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.252
-  mysql-slave:
-    image: mysql:5.7
-    container_name: mysql-slave
-    ports:
-      - 3307:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=api123
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.251 
-  redis:
-    image: redis
-    container_name: one-redis
-    ##command: redis-server --requirepass yourpassword
-    ports:
-      - 6379:6379
-    volumes:
-      - ./data:/data
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.249
+      - npm_config_unsafe_perm=true
+  # api:
+  #   build: 
+  #     context: ./one-api
+  #     dockerfile: Dockerfile
+  #     args:
+  #      - username=tommywu
+  #      - password=Wjs007008
+  #   image: oneapi:gm
+  #   container_name: one-api
+  #   ports:
+  #     - 9002:9002
+  #   volumes:
+  #     - ./www/api:/jikerone/api
+  #     - ./www/git/api:/source/api
+  #   user: www
+  #   # command: ./one-api/run.sh
+  #   command:
+  #     - /bin/sh
+  #     - -c
+  #     - |
+  #       php artisan key:generate 
+  #       php artisan jwt:secret 
+  #       php artisan migrate 
+  #       php artisan db:seed --class=PermissionsSeeder 
+  #       php artisan passport:keys  
+  #   depends_on:
+  #     - mysql-master
+  #     - mysql-slave
+  #     - redis
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.200
+  # mysql-master:
+  #   image: mysql:5.7
+  #   container_name: mysql-master
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=api123
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.252
+  # mysql-slave:
+  #   image: mysql:5.7
+  #   container_name: mysql-slave
+  #   ports:
+  #     - 3307:3306
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=api123
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.251 
+  # redis:
+  #   image: redis
+  #   container_name: one-redis
+  #   ##command: redis-server --requirepass yourpassword
+  #   ports:
+  #     - 6379:6379
+  #   volumes:
+  #     - ./data:/data
+  #   networks:
+  #     jiker_one_net:
+  #       ipv4_address: 192.168.0.249
 networks:
     jiker_one_net:
         driver: bridge
         ipam:
             config:
                 - subnet: 192.168.0.0/16
+volumes:
+  www:

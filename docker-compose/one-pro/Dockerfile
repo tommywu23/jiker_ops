@@ -42,12 +42,12 @@ RUN set -ex \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
     && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
     && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-# RUN yarn install && \
-#     yarn run deploy:local  
+RUN yarn install && \
+    yarn run deploy:local  
 RUN ls -a
-# RUN  groupadd -r www && useradd -r -g www www && \
-#      chown -R www:www /app
-# USER www
+RUN  groupadd -r www && useradd -r -g www www && \
+     chown -R www:www /app
+USER www
 
-# CMD ["/bin/bash"]
-CMD yarn run serve --port 9001
+CMD ["/bin/bash"]
+# CMD yarn run serve --port 9001
