@@ -28,6 +28,7 @@ services:
     user: www-data
     # command: ./one-api/run.sh
     command:
+      - php-fpm
       - /bin/sh
       - -c
       - |
