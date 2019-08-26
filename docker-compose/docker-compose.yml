@@ -1,86 +1,51 @@
-version: '3'
-
 services:
+
+
+  mysql-master:
+    image: daocloud.io/mysql:5.7
+    container_name: mysql-master
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=api123
+    volumes:
+      - "./mysql:/etc/mysql/conf.d"
+  mysql-slave:
+    image: daocloud.io/mysql:5.7
+    container_name: mysql-slave
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=api123
+    volumes:
+      - "./mysql:/etc/mysql/conf.d"
+  redis:
+    image: redis
+    container_name: one-redis
+    tty: true
+    ports:
+      - 6379:6379
   web:
     container_name: one-web
     image: jiker/one-web:0.0.1
     restart: always
     tty: true
-    ports: 
+    ports:
       - 80:80
     volumes:
       - ./conf.d:/etc/nginx/conf.d
       - ./log:/var/log/nginx
   api:
-    # build: 
-    #   context: ./one-api
-    #   dockerfile: Dockerfile
-    #   args:
-    #    - username=tommywu
-    #    - password=Wjs007008
     image: jiker/one-api:0.0.1
     container_name: one-api
     tty: true
     ports:
-      - 9002:9002
+      - "9002:9002"
+      - "9999:22"
     volumes:
       - "$PWD:/var/www"
-    #   - ./www/api:/jikerone/api
-    #   - ./www/git/api:/source/api
-    user: www-data
-    # command: ./one-api/run.sh
-    command:
-      - /bin/sh
-      - -c
-      - |
-        php artisan key:generate  
-        echo -e "yes" | php artisan jwt:secret 
-        echo -e "yes" | php artisan migrate 
-        php artisan db:seed --class=PermissionsSeeder 
-        php artisan passport:keys  
-    depends_on:
-      - mysql-master
-      - mysql-slave
-      - redis
-  mysql-master:
-    image: daocloud.io/mysql:latest
-    restart: always
-    container_name: mysql-master
-    volumes:
-      - ./data:/var/lib/mysql
-    #   - ./one-api/sqlconfig/sql.cnf:/etc/sql.cnf
-    #   - ./one-api/init:/docker-entrypoint-initdb.d/
-    # command: [
-    #   '--character-set-server=utf8mb4',
-    #   '--collation-server=utf8mb4_unicode_ci',
-    # ]
-    ports:
-      - 3306:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=api123
-      - MYSQL_DATABASE=one
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=api123
-  mysql-slave:
-    image: daocloud.io/mysql:latest
-    container_name: mysql-slave
-    restart: always
-    volumes:
-      - ./data:/var/lib/mysql
-    ports:
-      - 3307:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=api123
-      - MYSQL_DATABASE=one
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=api123
-  redis:
-    image: redis
-    container_name: one-redis
-    ##command: redis-server --requirepass yourpassword
-    tty: true
-    ports:
-      - 6379:6379
-    volumes:
-      - ./data:/data
-
+      - "./env:/jikerone/api/storage/logs"
+    links:
+        - "mysql-master:mysql-master"
+        - "mysql-slave:mysql-slave"
+        - "redis:redis"

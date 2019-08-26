@@ -1,122 +1,86 @@
 version: '3'
 
 services:
-  # nginx:
-  #   container_name: one-nginx
-  #   image: nginx:1.11.9
-  #   restart: always
-  #   ports: 
-  #     - 80:80
-  #   volumes:
-  #     - ./conf.d:/etc/nginx/conf.d
-  #     - ./log:/var/log/nginx
-  #     - ./www:/var/jiker/wwwroot
-  #   networks: jiker_one_net
-  # pro:
-  #   build: 
-  #     context: ./one-pro
-  #     dockerfile: Dockerfile
-  #     args:
-  #      - username=tommywu
-  #      - password=Wjs007008
-  #   container_name: one-pro
-  #   image: onepro:gm
-  #   restart: always
-  #   volumes:
-  #     - ./one-pro:/app
-  #   ports: 
-  #     - 9001:9001
-  #   environment:
-  #     - npm_config_unsafe_perm=true
-  #   user: produser
-  #   networks: jiker_one_net
+  web:
+    container_name: one-web
+    image: jiker/one-web:0.0.1
+    restart: always
+    tty: true
+    ports: 
+      - 80:80
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./log:/var/log/nginx
   api:
-    build: 
-      context: ./one-api
-      dockerfile: Dockerfile
-      args:
-       - username=tommywu
-       - password=Wjs007008
-    image: oneapi:gm
+    # build: 
+    #   context: ./one-api
+    #   dockerfile: Dockerfile
+    #   args:
+    #    - username=tommywu
+    #    - password=Wjs007008
+    image: jiker/one-api:0.0.1
     container_name: one-api
+    tty: true
     ports:
       - 9002:9002
     volumes:
-      - /jikerone/api:/www/api
-      - /source/api:/www/git/api
-    user: www
+      - "$PWD:/var/www"
+    #   - ./www/api:/jikerone/api
+    #   - ./www/git/api:/source/api
+    user: www-data
     # command: ./one-api/run.sh
     command:
       - /bin/sh
       - -c
       - |
-        php artisan key:generate 
-        php artisan jwt:secret 
-        php artisan migrate 
+        php artisan key:generate  
+        echo -e "yes" | php artisan jwt:secret 
+        echo -e "yes" | php artisan migrate 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
     depends_on:
       - mysql-master
       - mysql-slave
       - redis
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.100
-  # admin:
-  #   build: 
-  #     context: ./admin
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - username=tommywu
-  #       - password=Wjs007008
-  #   image: oneadmin:gm
-  #   container_name: one-admin
-  #   volumes:
-  #     - /jikerone/admin:/var/jiker/wwwroot/admin
-  #     - /source/admin:/var/jiker/git/admin
-  #   user: produser
-  #   command: /bin/sh -c php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan db:seed --class=PermissionsSeeder && php artisan passport:keys
-  #   depends_on:
-  #     - mysql-master
-  #     - mysql-slave
-  #     - redis
-  #   networks:
-  #     jiker_one_net:
-  #       ipv4_address: 192.168.0.101
   mysql-master:
-    image: mysql:5.7
+    image: daocloud.io/mysql:latest
+    restart: always
     container_name: mysql-master
+    volumes:
+      - ./data:/var/lib/mysql
+    #   - ./one-api/sqlconfig/sql.cnf:/etc/sql.cnf
+    #   - ./one-api/init:/docker-entrypoint-initdb.d/
+    # command: [
+    #   '--character-set-server=utf8mb4',
+    #   '--collation-server=utf8mb4_unicode_ci',
+    # ]
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.252
+      - MYSQL_DATABASE=one
+      - MYSQL_USER=jiker
+      - MYSQL_PASSWORD=api123
   mysql-slave:
-    image: mysql:5.7
+    image: daocloud.io/mysql:latest
     container_name: mysql-slave
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
     ports:
       - 3307:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.251 
+      - MYSQL_DATABASE=one
+      - MYSQL_USER=jiker
+      - MYSQL_PASSWORD=api123
   redis:
     image: redis
     container_name: one-redis
     ##command: redis-server --requirepass yourpassword
+    tty: true
     ports:
       - 6379:6379
     volumes:
       - ./data:/data
-    networks:
-      jiker_one_net:
-        ipv4_address: 192.168.0.249
-networks:
-    jiker_one_net:
-        driver: bridge
-        ipam:
-            config:
-                - subnet: 192.168.0.0/16
+
