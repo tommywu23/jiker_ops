@@ -43,27 +43,25 @@ services:
       - mysql-slave
       - redis
   mysql-master:
-    image: mysql:5.7
-    container_name: mysql-master
-    tty: true
+    image: daocloud.io/mysql:latest
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
       - MYSQL_DATABASE=one
-    depends_on:
-      - api
   mysql-slave:
-    image: mysql:5.7
-    container_name: mysql-slave
-    tty: true
+    image: daocloud.io/mysql:latest
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
     ports:
       - 3307:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
       - MYSQL_DATABASE=one
-    depends_on:
-      - api
   redis:
     image: redis
     container_name: one-redis
@@ -72,4 +70,6 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./data:/data
+      - db_data:/data
+volumes:
+  db_data:
