@@ -34,9 +34,9 @@ services:
       - -c
       - |
         php artisan key:generate  
-        php artisan jwt:secret 
-        echo -e "yes" | php artisan migrate 
-        echo -e "yes" | php artisan db:seed --class=PermissionsSeeder 
+        echo -e "yes" | php artisan jwt:secret 
+        php artisan migrate 
+        php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
     depends_on:
       - mysql-master
