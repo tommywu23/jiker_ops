@@ -23,8 +23,8 @@ services:
     tty: true
     ports:
       - 9002:9002
-    volumes:
-      - "$PWD:/jikerone/api"
+    # volumes:
+    #   - "$PWD:/jikerone/api"
     #   - ./www/api:/jikerone/api
     #   - ./www/git/api:/source/api
     user: www-data
