@@ -23,7 +23,8 @@ services:
     tty: true
     ports:
       - 9002:9002
-    # volumes:
+    volumes:
+      - "$PWD:/jikerone/api"
     #   - ./www/api:/jikerone/api
     #   - ./www/git/api:/source/api
     user: www-data
@@ -33,8 +34,10 @@ services:
       - -c
       - |
         php artisan key:generate 
-        echo -e "yes\n" | php artisan jwt:secret 
-        echo -e "yes\n" | php artisan migrate 
+        echo -e "yes\n" 
+        php artisan jwt:secret 
+        echo -e "yes\n" 
+        php artisan migrate 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
     depends_on:
