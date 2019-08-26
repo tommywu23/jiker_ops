@@ -34,9 +34,8 @@ services:
       - -c
       - |
         php artisan key:generate  
-        php artisan jwt:secret 
-        echo -e "yes\n" 
-        php artisan migrate 
+        echo -e "yes\n" | php artisan jwt:secret 
+        echo -e "yes\n" | php artisan migrate 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
     depends_on:
