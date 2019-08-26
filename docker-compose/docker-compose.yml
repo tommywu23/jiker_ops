@@ -57,6 +57,7 @@ services:
       - |
         php artisan key:generate  
         php artisan jwt:secret 
+        php artisan telescope:install
         php artisan migrate --force 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
