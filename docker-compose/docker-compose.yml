@@ -44,9 +44,9 @@ services:
     ports:
       - "9002:9000"
       - "9999:22"
-    volumes:
-      - "$PWD:/var/www"
-      - "./env:/jikerone/api/storage/logs"
+    # volumes:
+    #   - "$PWD:/var/www"
+    #   - "./env:/jikerone/api/storage/logs"
     links:
         - "mysql-master:mysql-master"
         - "mysql-slave:mysql-slave"
