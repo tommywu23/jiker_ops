@@ -22,7 +22,7 @@ services:
     container_name: one-api
     tty: true
     ports:
-      - 9002:9002
+      - 9000:9000
     volumes:
       - "$PWD:/var/www"
     #   - ./www/api:/jikerone/api
