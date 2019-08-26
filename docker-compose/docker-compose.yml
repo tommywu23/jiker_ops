@@ -72,6 +72,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=api123
       - MYSQL_DATABASE=one
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=api123
   redis:
     image: redis
     container_name: one-redis
