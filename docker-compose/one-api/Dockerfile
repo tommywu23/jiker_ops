@@ -71,7 +71,7 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
            --prefer-dist 
 COPY .env ${CODE_PATH} 
 
-RUN  chown -R www-data.www-data ${CODE_PATH} 
+RUN  chown -R 777 www-data.www-data ${CODE_PATH} 
 USER www-data
 
 EXPOSE 9000
