@@ -35,7 +35,7 @@ services:
       - |
         php artisan key:generate  
         echo -e "yes" | php artisan jwt:secret 
-        echo -e "yes" |php artisan migrate 
+        echo -e "yes" | php artisan migrate 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys  
     depends_on:
@@ -45,6 +45,7 @@ services:
   mysql-master:
     image: daocloud.io/mysql:latest
     restart: always
+    container_name: mysql-master
     volumes:
       - ./data:/var/lib/mysql
       - ./one-api/init:/docker-entrypoint-initdb.d/
@@ -59,6 +60,7 @@ services:
       - MYSQL_DATABASE=one
   mysql-slave:
     image: daocloud.io/mysql:latest
+    container_name: mysql-slave
     restart: always
     volumes:
       - ./data:/var/lib/mysql
