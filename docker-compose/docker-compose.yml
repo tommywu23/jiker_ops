@@ -8,6 +8,7 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
+      - MYSQL_DATABASE=one
     volumes:
       - "./mysql:/etc/mysql/conf.d"
   mysql-slave:
@@ -17,6 +18,7 @@ services:
       - 3307:3306
     environment:
       - MYSQL_ROOT_PASSWORD=api123
+      - MYSQL_DATABASE=one
     volumes:
       - "./mysql:/etc/mysql/conf.d"
   redis:
@@ -49,3 +51,12 @@ services:
         - "mysql-master:mysql-master"
         - "mysql-slave:mysql-slave"
         - "redis:redis"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        php artisan key:generate  
+        php artisan jwt:secret 
+        php artisan migrate --force 
+        php artisan db:seed --class=PermissionsSeeder 
+        php artisan passport:keys  
