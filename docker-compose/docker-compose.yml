@@ -1,6 +1,6 @@
 services:
   mysql-master:
-    image: daocloud.io/mysql:5.7
+    image: daocloud.io/mysql:latest
     container_name: mysql-master
     ports:
       - 3306:3306
@@ -9,7 +9,7 @@ services:
     volumes:
       - "./mysql:/etc/mysql/conf.d"
   mysql-slave:
-    image: daocloud.io/mysql:5.7
+    image: daocloud.io/mysql:latest
     container_name: mysql-slave
     ports:
       - 3307:3306
