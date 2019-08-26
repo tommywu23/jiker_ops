@@ -74,7 +74,7 @@ COPY .env ${CODE_PATH}
 RUN  chown -R www-data.www-data ${CODE_PATH} 
 USER www-data
 
-EXPOSE 9002
+EXPOSE 9000
 
 CMD ["php-fpm"]
 
