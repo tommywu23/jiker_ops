@@ -46,7 +46,6 @@ services:
       - "9999:22"
     volumes:
       - "$PWD:/var/www"
-      - "./env:/jikerone/api/storage/logs"
     links:
         - "mysql-master:mysql-master"
         - "mysql-slave:mysql-slave"
