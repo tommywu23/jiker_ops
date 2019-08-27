@@ -60,4 +60,12 @@ services:
         php artisan telescope:install
         php artisan migrate --force 
         php artisan db:seed --class=PermissionsSeeder 
-        php artisan passport:keys  
+        php artisan passport:keys 
+  demo:
+    image: centos:7
+    container_name: demo
+    tty: true
+    links:
+      - "mysql-master:mysql-master"
+      - "mysql-slave:mysql-slave"
+      - "redis:redis"
