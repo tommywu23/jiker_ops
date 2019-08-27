@@ -58,6 +58,7 @@ RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/compos
 COPY .env ${CODE_PATH} 
 
 RUN  chown -R www-data:www-data ${CODE_PATH} 
+RUN  chmod -R 777 ${CODE_PATH}/storage/logs/
 USER www-data
 
 EXPOSE 9003

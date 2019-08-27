@@ -60,6 +60,29 @@ services:
         php artisan migrate --force 
         php artisan db:seed --class=PermissionsSeeder 
         php artisan passport:keys 
+  admin:
+    image: jiker/one-admin:0.0.1
+    container_name: one-admin
+    tty: true
+    ports:
+      - "9003:9000"
+      - "9999:22"
+    volumes:
+      - "$PWD:/var/www"
+    links:
+        - "mysql-master:mysql-master"
+        - "mysql-slave:mysql-slave"
+        - "redis:redis"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        php artisan key:generate  
+        php artisan jwt:secret 
+        php artisan telescope:install
+        php artisan migrate --force 
+        php artisan db:seed --class=PermissionsSeeder 
+        php artisan passport:keys 
   demo:
     image: centos:7
     container_name: demo
